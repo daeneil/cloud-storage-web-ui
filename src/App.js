@@ -49,32 +49,16 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* ... other routes ... */}
-        <Route
-          path="/"
-          element={
-            <HomePage
-              // ... other props ...
-              cameras={cameras}
-              videos={videos}
-              onVideoSelect={(videoId) => {
-                // Redirect to video player or fetch metadata for in-page display
-              }}
-            />
-          }
-        />
-        <Route
-          path="/videos/:videoId"
-          element={
-            <CCTVVideoPlayer
-              videoId={videoID} // Pass the actual videoID value
-              metadata={metadata} // Pass the actual metada value
-              videoPlayer={createVideoPlayer(videoId)} // Pass video player instance
-              onControl={handleVideoControls} // Pass control handler
-            />
-          }
-        />
-        {/* ... other routes ... */}
+      <Route path="/" element={<HomePage />} /> // Adjust default route as needed
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/cameras" element={<CameraList />} />
+      <Route path="/videos/:videoId" element={<CCTVVideoPlayer />} />
+      <Route path="/controls" element={<VideoControls />} /> {/* Route for VideoControls */}
+      <Route path="/events" element={<EventTimeline />} />
+      <Route path="/file-upload" element={<FileUploadPage />} />
+      <Route path="/video-search" element={<VideoSearch />} />
+      <Route path="/video-download/:videoId" element={<VideoDownload />} /> // Dynamic route for video download
+      {/* Add routes for VideoControls and other components as needed */}
       </Routes>
     </BrowserRouter>
   );
