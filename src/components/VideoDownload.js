@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Progress } from 'antd'; // Example UI components
-import { cloudStorage } from '../utils/cloudStorage'; // Assuming imported functions
+import {deleteFile, downloadFile, getCameraList, getPresignedUrl, getVideoList, listFiles, uploadFile} from '../utils/cloudStorage'; // Assuming imported functions
 
 const VideoDownload = ({ videoId }) => {
   const [downloading, setDownloading] = useState(false);

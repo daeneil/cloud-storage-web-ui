@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
-import { cloudStorage } from '../utils/cloudStorage'; // Assuming imported functions
+import {deleteFile, downloadFile, getCameraList, getPresignedUrl, getVideoList, listFiles, uploadFile} from '../utils/cloudStorage'; // Assuming imported functions
 
 const CCTVVideoPlayer = ({ videoId, metadata, onControl }) => {
   const [player, setPlayer] = useState(null);

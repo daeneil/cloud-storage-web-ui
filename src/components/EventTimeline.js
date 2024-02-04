@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Timeline, Icon } from 'antd'; // Example UI components
-import { cloudStorage } from '../utils/cloudStorage'; // Assuming imported functions
+import { Timeline } from 'antd';
+import { Button } from 'antd';
+import {deleteFile, downloadFile, getCameraList, getPresignedUrl, getVideoList, listFiles, uploadFile} from '../utils/cloudStorage'; // Assuming imported functions
 
 const EventTimeline = ({ onEventSelect, initialTimeRange }) => {
   const [events, setEvents] = useState([]);
