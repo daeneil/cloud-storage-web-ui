@@ -1,4 +1,5 @@
 import AWS from 'aws-sdk';
+import { deleteFile, downloadFile, getPresignedUrl, listFiles, uploadFile } from '../utils/cloudStorage';
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID, // Securely retrieve credentials
@@ -85,5 +86,36 @@ export const getPresignedUrl = async (filename, bucket = 'your-bucket-name') => 
   } catch (err) {
     console.error('Get presigned URL error:', err);
     return null;
+  }
+};
+// ... other imports and code in cloudStorage.js ...
+
+// Get a list of cameras
+export const getCameraList = async (bucket = 'your-bucket-name', folder = 'cameras') => {
+  try {
+    const cameras = await listFiles(folder, bucket);
+    return cameras.map((item) => ({
+      name: item.key.replace(folder + '/', ''), // Extract camera name from key
+      // ... other camera details if needed ...
+    }));
+  } catch (err) {
+    console.error('Failed to get camera list:', err);
+    return [];
+  }
+};
+
+// Get a list of videos
+export const getVideoList = async (bucket = 'your-bucket-name', folder = 'videos') => {
+  try {
+    const videos = await listFiles(folder, bucket);
+    return videos.map((item) => ({
+      name: item.key.replace(folder + '/', ''), // Extract video name from key
+      size: item.size,
+      lastModified: item.lastModified,
+      // ... other video details if needed ...
+    }));
+  } catch (err) {
+    console.error('Failed to get video list:', err);
+    return [];
   }
 };
