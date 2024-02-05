@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import LoginPage from './components/LoginPage';
-import HomePage from './components/HomePage';
-import FileUploadPage from './components/FileUploadPage';
-import CCTVVideoPlayer from './components/CCTVVideoPlayer';
-import CameraList from './components/CameraList';
-import VideoControls from './components/VideoControls';
-import VideoSearch from './components/VideoSearch';
-import VideoDownload from './components/VideoDownload';
-import EventTimeline from './components/EventTimeline';
+import VideoSearch from './VideoSearch';
+import CameraList from './CameraList';
+import EventTimeline from './EventTimeline';
+import CCTVVideoPlayer from './CCTVVideoPlayer';
 // ... other imports
 
 const HomePage = () => {
@@ -23,7 +18,7 @@ const HomePage = () => {
       <div className="home-features">
         <CameraList onCameraSelect={(camera) => { /* Handle camera selection */ }} />
         <VideoSearch onVideoSelect={(video) => setSelectedVideoId(video.id)} />
-        <EventTimeline initialTimeRange={(timeline)} />
+        <EventTimeline initialTimeRange={timeline} />
       </div>
 
       {selectedVideoId && <CCTVVideoPlayer videoId={selectedVideoId} metadata={metadata} />}
