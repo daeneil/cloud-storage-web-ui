@@ -28,6 +28,7 @@
     "react-router-dom": "^6.4.2"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "patch-package": "^8.0.0",
     "react-scripts": "^5.0.1"
   },
