@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from './components/LoginPage';
 import HomePage from './components/HomePage';
@@ -9,7 +10,7 @@ import VideoControls from './components/VideoControls';
 import VideoSearch from './components/VideoSearch';
 import VideoDownload from './components/VideoDownload';
 import EventTimeline from './components/EventTimeline';
-import { createAuth0Client } from '@auth0/auth0-spa-js';
+import auth0 from './components/auth0Config.js';
 
 // Import utility functions
 import {
@@ -20,10 +21,21 @@ import {
 } from './utils/cloudStorage';
 import { createVideoPlayer, handleVideoControls } from './utils/videoPlayer';
 
-// ... Auth0 client configuration ...
-
 function App() {
-  // ... Authentication state and user management ...
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    auth0.isAuthenticated()
+      .then((isAuthenticated) => setIsAuthenticated(isAuthenticated))
+      .then(() => {
+        if (isAuthenticated) {
+          auth0.getUser()
+            .then((user) => setUser(user))
+            .catch((error) => console.error('Error fetching user:', error));
+        }
+      });
+  }, []);
 
   const [cameras, setCameras] = useState([]);
   const [videos, setVideos] = useState([]);
@@ -49,9 +61,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+      <Route
+          path="/"
+          element={isAuthenticated ? <HomePage /> : <LoginPage handleLogin={auth0.loginWithRedirect} />}
+        />
+        {/* Protect other routes similarly */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/cameras" element={<CameraList />} />
       <Route path="/" element={<HomePage />} /> // Adjust default route as needed
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/cameras" element={<CameraList />} />
       <Route path="/videos/:videoId" element={<CCTVVideoPlayer />} />
       <Route path="/controls" element={<VideoControls />} /> {/* Route for VideoControls */}
       <Route path="/events" element={<EventTimeline />} />
