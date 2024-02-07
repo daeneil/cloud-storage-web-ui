@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from './components/LoginPage';
@@ -61,21 +60,21 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-      <Route
+        <Route
           path="/"
           element={isAuthenticated ? <HomePage /> : <LoginPage handleLogin={auth0.loginWithRedirect} />}
         />
         {/* Protect other routes similarly */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/cameras" element={<CameraList />} />
-      <Route path="/" element={<HomePage />} /> // Adjust default route as needed
-      <Route path="/videos/:videoId" element={<CCTVVideoPlayer />} />
-      <Route path="/controls" element={<VideoControls />} /> {/* Route for VideoControls */}
-      <Route path="/events" element={<EventTimeline />} />
-      <Route path="/file-upload" element={<FileUploadPage />} />
-      <Route path="/video-search" element={<VideoSearch />} />
-      <Route path="/video-download/:videoId" element={<VideoDownload />} /> // Dynamic route for video download
-      {/* Add routes for VideoControls and other components as needed */}
+        <Route path="/" element={<HomePage />} /> // Adjust default route as needed
+        <Route path="/videos/:videoId" element={<CCTVVideoPlayer />} />
+        <Route path="/controls" element={<VideoControls />} /> {/* Route for VideoControls */}
+        <Route path="/events" element={<EventTimeline />} />
+        <Route path="/file-upload" element={<FileUploadPage />} />
+        <Route path="/video-search" element={<VideoSearch />} />
+        <Route path="/video-download/:videoId" element={<VideoDownload />} /> // Dynamic route for video download
+        {/* Add routes for VideoControls and other components as needed */}
       </Routes>
     </BrowserRouter>
   );
